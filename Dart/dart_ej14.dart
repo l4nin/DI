@@ -12,6 +12,13 @@ int binToDec(String bin) {
   return int.parse(bin, radix: 2);
 }
 
+/// Metodo 2
+
+int binToDec(String bin) {
+  // Para cada carácter: resultado * 2 + (1 si es '1', 0 si es '0').
+  return bin.split('').fold(0, (acumulado, c) => acumulado * 2 + (c == '1' ? 1 : 0));
+}
+
 void main() {
   print(binToDec("0"));       // 0
   print(binToDec("1"));       // 1

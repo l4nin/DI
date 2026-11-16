@@ -24,6 +24,32 @@ String addLetters(List<String> letters) {
   return String.fromCharCode(posicion + 96);
 }
 
+
+/// Metodo 2
+
+/// Código ASCII de la letra 'a', usado como punto de referencia.
+const int _codigoA = 97;
+
+/// Número de letras del abecedario inglés (de 'a' a 'z').
+const int _totalLetras = 26;
+
+String addLetters(List<String> letters) {
+  // Sumamos todos los valores con fold, partiendo de 0.
+  // Para cada letra: su código ASCII menos el de 'a' da 0..25,
+  // y sumando 1 obtenemos su posición (1..26).
+  final int suma = letters.fold(
+    0,
+    (acumulado, letra) => acumulado + (letra.codeUnitAt(0) - _codigoA + 1),
+  );
+
+  // Pasamos la suma a un valor de 0 a 25 con el módulo.
+  // Si la suma es 0 (lista vacía), -1 % 26 da 25 en Dart, que es 'z'.
+  final int indice = (suma - 1) % _totalLetras;
+
+  // Volvemos de 0..25 a una letra sumando el código ASCII de 'a'.
+  return String.fromCharCode(_codigoA + indice);
+}
+
 void main() {
   print(addLetters(['a', 'b', 'c'])); // f (1+2+3 = 6)
   print(addLetters(['z', 'a']));      // a (26+1 = 27 -> vuelve a 1)

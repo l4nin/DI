@@ -25,6 +25,13 @@ String reverseWords(String str) {
   return invertidas.join(' ');
 }
 
+/// Metodo 2
+
+String reverseWords(String str) {
+  // Cortamos, invertimos y volvemos a unir con espacios.
+  return str.split(' ').reversed.join(' ');
+}
+
 void main() {
   print(reverseWords("hello world!"));        // world! hello
   print(reverseWords("yoda doesn't speak like this")); // this like speak doesn't yoda

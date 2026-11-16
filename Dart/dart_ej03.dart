@@ -23,6 +23,48 @@ int divisors(int n) {
   return contador;
 }
 
+
+/// Metodo 2
+
+
+int divisors(int n) {
+  // Validamos la entrada: solo tiene sentido para enteros positivos.
+  if (n <= 0) {
+    throw ArgumentError('n debe ser un entero positivo');
+  }
+
+  // Parte de n que aún no hemos descompuesto en factores primos.
+  int resto = n;
+
+  // Total de divisores. Empieza en 1 porque es el elemento neutro
+  // de la multiplicación (así divisors(1) devuelve 1).
+  int total = 1;
+
+  // Probamos cada posible factor mientras primo * primo <= resto.
+  // Como [resto] va disminuyendo, el bucle se acorta solo.
+  for (int primo = 2; primo * primo <= resto; primo++) {
+    // Cuántas veces divide [primo] a [resto] (el exponente).
+    int exponente = 0;
+
+    while (resto % primo == 0) {
+      resto ~/= primo; // Quitamos el factor encontrado
+      exponente++;
+    }
+
+    // Cada factor con exponente a aporta (a + 1) divisores.
+    // Si el primo no divide a n, el exponente es 0 y multiplica por 1.
+    total *= exponente + 1;
+  }
+
+  // Si queda algo mayor que 1, es un primo con exponente 1
+  // (por ejemplo, el 3 que sobra al descomponer 12), y aporta x2.
+  if (resto > 1) {
+    total *= 2;
+  }
+
+  return total;
+}
+
 void main() {
   print(divisors(1));  // 1
   print(divisors(10)); // 4  (1, 2, 5, 10)

@@ -32,6 +32,39 @@ int gps(int s, List<double> x) {
   return velocidadMax.floor();
 }
 
+
+/// Metodo 2 
+
+import 'dart:math';
+
+/// Segundos que tiene una hora, usado para pasar de segundos a horas.
+const int _segundosPorHora = 3600;
+
+int gps(int s, List<double> x) {
+  // Validamos [s]: un tiempo de 0 o negativo provocaría una división
+  // entre cero o velocidades sin sentido.
+  if (s <= 0) {
+    throw ArgumentError('s debe ser mayor que 0');
+  }
+
+  // Con 1 registro o ninguno no hay tramos: el coche no se movió.
+  if (x.length <= 1) {
+    return 0;
+  }
+
+  // Calculamos la distancia de cada tramo (registro actual - anterior)
+  // y nos quedamos con la mayor usando max para comparar de dos en dos.
+  final double distanciaMax = List.generate(
+    x.length - 1,
+    (i) => x[i + 1] - x[i],
+  ).reduce(max);
+
+  // Convertimos la distancia (por cada s segundos) a distancia por hora
+  // y redondeamos hacia abajo.
+  return (distanciaMax * _segundosPorHora / s).floor();
+}
+
+
 void main() {
   // Ejemplo del enunciado: debe imprimir 74
   print(gps(15, [0.0, 0.19, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.25]));

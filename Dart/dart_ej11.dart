@@ -34,6 +34,21 @@ bool logicalCalc(List<bool> array, String op) {
   return resultado;
 }
 
+
+/// Metodo 2
+
+bool logicalCalc(List<bool> array, String op) {
+  return switch (op) {
+    // AND: true solo si no hay ningún false.
+    "AND" => array.every((valor) => valor),
+    // OR: true si hay al menos un true.
+    "OR" => array.any((valor) => valor),
+    // XOR encadenado: true si la cantidad de true es impar.
+    "XOR" => array.where((valor) => valor).length.isOdd,
+    _ => throw ArgumentError('Operador no válido: $op'),
+  };
+}
+
 void main() {
   print(logicalCalc([true, true, true, false], "AND")); // false
   print(logicalCalc([true, true, true, false], "OR"));  // true

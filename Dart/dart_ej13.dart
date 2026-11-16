@@ -22,6 +22,17 @@ bool isPalindrome(String x) {
   return texto == invertido;
 }
 
+/// Metodo 2
+
+bool isPalindrome(String x) {
+  final String texto = x.toLowerCase();
+
+  // Para cada posición de la primera mitad, su carácter debe coincidir
+  // con el de la posición simétrica empezando por el final.
+  return List.generate(texto.length ~/ 2, (i) => i)
+      .every((i) => texto[i] == texto[texto.length - 1 - i]);
+}
+
 void main() {
   print(isPalindrome("a"));     // true
   print(isPalindrome("aba"));   // true

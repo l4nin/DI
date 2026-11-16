@@ -24,6 +24,24 @@ int stray(List<int> numbers) {
   return comun;
 }
 
+/// metodo 2
+
+int stray(List<int> numbers) {
+  // Resultado acumulado. Empieza en 0 porque 0 ^ x = x
+  // (es el elemento neutro del XOR).
+  int intruso = 0;
+
+  for (int numero in numbers) {
+    // x ^ x = 0, así que cada pareja de números iguales se elimina.
+    // Los n - 1 números comunes son una cantidad par y desaparecen.
+    intruso ^= numero;
+  }
+
+  // Lo único que no se ha cancelado es el número intruso.
+  return intruso;
+}
+
+
 void main() {
   print(stray([1, 1, 2]));                  // 2
   print(stray([17, 17, 3, 17, 17, 17, 17])); // 3

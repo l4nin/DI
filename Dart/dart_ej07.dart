@@ -21,6 +21,19 @@ String oddOrEven(List<int> array) {
   }
 }
 
+
+/// Metodo 2
+
+String oddOrEven(List<int> array) {
+  // Contamos los elementos impares con where.
+  // Usamos isOdd, que en Dart funciona bien también con negativos.
+  final int cantidadImpares = array.where((numero) => numero.isOdd).length;
+
+  // Si la cantidad de impares es impar, la suma es impar.
+  return cantidadImpares.isOdd ? "odd" : "even";
+}
+
+
 void main() {
   print(oddOrEven([0]));         // even
   print(oddOrEven([0, 1, 4]));   // odd  (suma 5)

@@ -17,6 +17,22 @@ void swapValues(List arr) {
   arr[1] = temporal;
 }
 
+
+/// Metodo 2 
+
+void swapValues(List arr) {
+  // Validamos la entrada: sin dos elementos no hay nada que intercambiar.
+  if (arr.length < 2) {
+    throw ArgumentError('La lista debe tener al menos dos elementos');
+  }
+
+  // El lado derecho crea el par [segundo, primero] con los valores
+  // actuales, y después se asigna a las dos posiciones a la vez.
+  [arr[0], arr[1]] = [arr[1], arr[0]];
+}
+
+
+
 void main() {
   List arr = [1, 2];
   swapValues(arr);
